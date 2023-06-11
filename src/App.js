@@ -1,7 +1,5 @@
 import React, { useReducer, useEffect, useState } from "react";
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.css'
-import { Card, Row, Col } from 'react-bootstrap';
 import counterReducer from './reducers/counterReducer';
 
 // Action Types
@@ -65,39 +63,46 @@ function App() {
     <div className="App">
       <h1>{itemType.charAt(0).toUpperCase() + itemType.slice(1)}</h1>
       <h2>Count: {count}</h2>
-      <button onClick={() => countDispatch({ type: 'INCREMENT' })}>Increment</button>
-      <button onClick={() => countDispatch({ type: 'DECREMENT' })}>Decrement</button>
+      <div className="button-container">
+        <button className="increment-button" onClick={() => countDispatch({ type: 'INCREMENT' })}>
+          Increment
+        </button>
+        <button className="decrement-button" onClick={() => countDispatch({ type: 'DECREMENT' })}>
+          Decrement
+        </button>
+      </div>
       <label>
-        Number of items to display:
+        Number of items to display:  
         <input
+          className="item-count-input"
           type="number"
           value={itemCount}
           onChange={(e) => setItemCount(e.target.value)}
         />
       </label>
       <label>
-        Select type:
-        <select value={itemType} onChange={(e) => setItemType(e.target.value)}>
+        Select type:  
+        <select className="item-type-select" value={itemType} onChange={(e) => setItemType(e.target.value)}>
           <option value="posts">Posts</option>
           <option value="todos">Todos</option>
           <option value="users">Users</option>
         </select>
       </label>
       {state === null ? <p>Loading...</p> :
-        <Row>
+        <div className="row">
           {state.map((item, index) => (
-            <Col sm={4} key={index}>
-              <Card style={{ width: '18rem', marginTop: '1rem' }}>
-                <Card.Body>
-                  <Card.Title>{item.title || item.name}</Card.Title>
-                  <Card.Text>
+            <div className="col-sm-4" key={index}>
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">{item.title || item.name}</h5>
+                  <p className="card-text">
                     {renderCardText(item)}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
+                  </p>
+                </div>
+              </div>
+            </div>
           ))}
-        </Row>
+        </div>
       }
     </div>
   );
