@@ -2,6 +2,7 @@ import React, { useReducer, useEffect, useState } from "react";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.css'
 import { Card, Row, Col } from 'react-bootstrap';
+import counterReducer from './reducers/counterReducer';
 
 // Action Types
 const SET_ITEMS = "SET_ITEMS";
@@ -20,6 +21,7 @@ function App() {
   const [state, dispatch] = useReducer(itemsReducer, null);
   const [itemCount, setItemCount] = useState(5);
   const [itemType, setItemType] = useState('posts');
+  const [count, countDispatch] = useReducer(counterReducer, 0);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -62,6 +64,9 @@ function App() {
   return (
     <div className="App">
       <h1>{itemType.charAt(0).toUpperCase() + itemType.slice(1)}</h1>
+      <h2>Count: {count}</h2>
+      <button onClick={() => countDispatch({ type: 'INCREMENT' })}>Increment</button>
+      <button onClick={() => countDispatch({ type: 'DECREMENT' })}>Decrement</button>
       <label>
         Number of items to display:
         <input
